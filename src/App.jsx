@@ -5,21 +5,33 @@ import { languages } from './assets/languages';
 /**
  * Goal: Build out the main parts of our app
  * 
- * Challenge: Create the language chips. Use the
- * `languages.js` file to pull in the array of
- * languages to use, which contains the language
- * name, background color, and text color.
- * 
- * Hint for layout: use a flex container that can wrap
- * to layout the languages.
+ * Challenge: 
+ * 1. Save a "currentWord" in state. Initialize as "react".
+ * 2. Map over the letters of the word (you'll need to turn 
+ *    the string into an array of letters first) and display
+ *    each one as a <span>. Capitalize the letters when
+ *    displaying them.
+ * 3. Style to look like the design. You can get the underline 
+ *    effect on the box using `border-bottom`.
  */
 
 export default function AssemblyEndgame() {
 
+  const [currentWord, setCurrentWord] = useState("react");
+
+  const letterElements = currentWord.toUpperCase().split("").map((char, index) => {
+
+    console.log(char)
+    return (
+      <span key={index}>
+        {char}
+      </span>
+    ) 
+  })
+
   const languageElements = languages.map((language) => {
     return (
-      <span 
-        className="chips"
+      <span
         key={language.name}
         style={
           {
@@ -47,6 +59,10 @@ export default function AssemblyEndgame() {
 
       <section className="language-chips">
         {languageElements}
+      </section>
+
+      <section className="word">
+        {letterElements}
       </section>
     </main>
   )
