@@ -46,3 +46,19 @@ header > p {
   font-size: 0.875rem;
   margin: 5px;
 }
+
+.language-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  max-width: 350px;
+}
+
+.chips {
+  font-size: 0.875rem;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 10px 5px;
+  margin: 2px;
+}

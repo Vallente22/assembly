@@ -1,17 +1,37 @@
 import { useState } from 'react'
 import './App.css'
+import { languages } from './assets/languages';
 
 /**
  * Goal: Build out the main parts of our app
  * 
- * Challenge: Build a status section below the header.
- * For now, you can just hard-code in the styles for
- * a winning game, and we'll make it more dynamic
- * later.
+ * Challenge: Create the language chips. Use the
+ * `languages.js` file to pull in the array of
+ * languages to use, which contains the language
+ * name, background color, and text color.
+ * 
+ * Hint for layout: use a flex container that can wrap
+ * to layout the languages.
  */
 
 export default function AssemblyEndgame() {
-  const [isGameWon, setIsGameWon] = useState(true);
+
+  const languageElements = languages.map((language) => {
+    return (
+      <span 
+        className="chips"
+        key={language.name}
+        style={
+          {
+            backgroundColor: language.backgroundColor,
+            color: language.color
+          }
+        }
+      >
+        {language.name}
+      </span>
+    )
+  })
 
   return (
     <main>
@@ -23,6 +43,10 @@ export default function AssemblyEndgame() {
       <section className="game-status">
         <h2>You win!</h2>
         <p>Well done! 🎉</p>
+      </section>
+
+      <section className="language-chips">
+        {languageElements}
       </section>
     </main>
   )
