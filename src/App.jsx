@@ -6,12 +6,8 @@ import clsx from 'clsx';
 /**
  * Goal: Allow the user to start guessing the letters
  * 
- * Challenge: Update the keyboard when a letter is right
- * or wrong.
- * 
- * Bonus: use the `clsx` package to easily add conditional 
- * classNames to the keys of the keyboard. Check the docs 
- * to learn how to use it 📖
+ * Challenge: Only display the correctly-guessed letters
+ * in the word
  */
 
 export default function AssemblyEndgame() {
@@ -49,7 +45,9 @@ export default function AssemblyEndgame() {
 
   const letterElements = currentWord.split("").map((char, index) => {
     return (
-      <span key={index}>{char.toUpperCase()}</span>
+      <span key={index}>
+        {guessedLetters.includes(char) ? char.toUpperCase() : " "}
+      </span>
     ) 
   })
 
