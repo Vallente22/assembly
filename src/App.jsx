@@ -6,11 +6,12 @@ import clsx from 'clsx';
 /**
  * Goal: Add in the incorrect guesses mechanism to the game
  * 
- * Challenge: Derive a variable (`wrongGuessCount`) for the 
- * number of incorrect guesses by using the other state 
- * values we're already holding in the component.
+ * Challenge: When mapping over the languages, determine how
+ * many of them have been "lost" and add the "lost" class if
+ * so.
  * 
- * console.log the wrongGuessCount for now
+ * Hint: use the wrongGuessCount combined with the index of
+ * the item in the array while inside the languages.map code
  */
 
 export default function AssemblyEndgame() {
@@ -31,16 +32,24 @@ export default function AssemblyEndgame() {
     )
   }
 
-  const languageElements = languages.map((language) => {
+  const languageElements = languages.map((language, index) => {
+    const style = {
+      backgroundColor: language.backgroundColor,
+      color: language.color
+    }
+    
+    const className = clsx(
+      "chip",
+      {
+        lost: index < wrongGuessCount.length
+      }
+    )
+
     return (
       <span
+        className={className}
         key={language.name}
-        style={
-          {
-            backgroundColor: language.backgroundColor,
-            color: language.color
-          }
-        }
+        style={style}
       >
         {language.name}
       </span>
