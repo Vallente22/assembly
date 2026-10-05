@@ -35,12 +35,19 @@ section.game-status {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #0EA051;
-  padding: 3px 0;
+  min-height: 70px;
   max-width: 350px;
   border-radius: 4px;
   margin: 0 auto;
   margin-block: 30px;
+}
+
+section.game-status.win {
+  background-color: #0EA051;
+}
+
+section.game-status.lost {
+  background-color: #B02627;
 }
 
 section.game-status > h2 {
