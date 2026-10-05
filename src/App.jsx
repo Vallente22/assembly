@@ -24,6 +24,7 @@ export default function AssemblyEndgame() {
 
   //derived values
   const wrongGuessCount = guessedLetters.filter(char => !currentWord.includes(char));
+  const isGameWon = currentWord.split("").every(char => guessedLetters.includes(char))
   const isGameOver = languages.length <= wrongGuessCount.length;
 
   //static values
@@ -118,7 +119,7 @@ export default function AssemblyEndgame() {
         {keyboardElements}
       </section>
 
-      {isGameOver && <button 
+      {isGameWon && <button 
         className="new-game"
         onClick={gameOver}
       >
