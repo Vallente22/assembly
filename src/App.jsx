@@ -3,6 +3,16 @@ import './App.css'
 import { languages } from './assets/languages';
 import clsx from 'clsx';
 
+/**
+ * Backlog:
+ * 
+ * - farewell messages for every wrong guess in status section
+ * - fix a11y(accessibility) issues
+ * - make new game button work
+ * - choose a random word from a list of words
+ * - confetti drop when the user wins
+ */
+
 export default function AssemblyEndgame() {
 
   //state values
