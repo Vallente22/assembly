@@ -3,19 +3,6 @@ import './App.css'
 import { languages } from './assets/languages';
 import clsx from 'clsx';
 
-/**
- * Goal: Add in the incorrect guesses mechanism to the game
- * 
- * Challenge:
- * Conditionally render either the "won" or "lost" statuses
- * from the design, both the text and the styles, based on the
- * new derived variables.
- * 
- * Note: We always want the surrounding `section` to be rendered,
- * so only change the content inside that section. Otherwise the
- * content on the page would jump around a bit too much.
- */
-
 export default function AssemblyEndgame() {
 
   //state values
@@ -96,6 +83,28 @@ export default function AssemblyEndgame() {
     setguessedLetters([])
   }
 
+  function renderGameStatus() {
+    if (!isGameOver) {
+      return null
+    }
+
+    if (isGameWon) {
+      return (
+        <>
+          <h2>You win!</h2>
+          <p>Well done! 🎉</p>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <h2>Game over!</h2>
+          <p>You lose! Better start learning Assembly son 😭</p>
+        </>
+      )
+    }
+  }
+
 
   return (
     <main>
@@ -110,20 +119,8 @@ export default function AssemblyEndgame() {
           lost: isGameLost
         })}
       >
-        {isGameOver ? (
-          isGameWon ? (
-            <>
-              <h2>You win!</h2>
-              <p>Well done! 🎉</p>
-            </>
-          ) : (
-            <>
-              <h2>Game over!</h2>
-              <p>You lose! Better start learning Assembly son 😭</p>
-            </>
-          )
-        ) : null}
-    </section>
+        {renderGameStatus()}
+      </section>
 
       <section className="language-chips">
         {languageElements}
