@@ -50,6 +50,10 @@ section.game-status.lost {
   background-color: #B02627;
 }
 
+section.game-status.wrong {
+  background-color: #6F529E;
+}
+
 section.game-status > h2 {
   font-size: 1.25rem;
   margin: 5px;
