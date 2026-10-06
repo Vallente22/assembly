@@ -9,7 +9,7 @@ import { getFarewellText } from './assets/utils';
  * 
  * ✅ Farewell messages in status section
  * ✅ Disable the keyboard when the game is over
- * - Fix a11y issues
+ * ✅ Fix a11y issues
  * - Make the New Game button reset the game
  * - Choose a random word from a list of words
  * - Confetti drop when the user wins
@@ -25,12 +25,13 @@ export default function AssemblyEndgame() {
 
 
   //derived values
+  const numGuessesLeft = languages.length - 1
   const wrongGuessCount = guessedLetters.filter(char => !currentWord.includes(char));
   const isGameWon = currentWord.split("").every(char => guessedLetters.includes(char))
   const isGameLost = languages.length <= wrongGuessCount.length;
   const isGameOver = isGameWon || isGameLost;
-  const lastGuessed = guessedLetters[guessedLetters.length - 1]
-  const isLastGuessWrong = lastGuessed && !currentWord.includes(lastGuessed) 
+  const lastGuessedLetter = guessedLetters[guessedLetters.length - 1]
+  const isLastGuessWrong = lastGuessedLetter && !currentWord.includes(lastGuessedLetter) 
 
   console.log(isLastGuessWrong)
   //static values
@@ -165,11 +166,19 @@ export default function AssemblyEndgame() {
         {letterElements}
       </section>
 
+      {/* Combined visually-hidden aria-live region for status updates */}
       <section 
         className="sr-only" 
         aria-live="polite" 
         role="status"
       >
+        <p>
+          {currentWord.includes(lastGuessedLetter) ? 
+            `Correct! The letter ${lastGuessedLetter} is in the word` :
+            `Sorry, the letter ${lastGuessedLetter} is not in the word`
+          }
+          You have {numGuessesLeft} attempts left.
+        </p>
         <p>
           Current word: {currentWord.split("").map(letter => 
           guessedLetters.includes(letter) ? letter + "." : "blank.")
