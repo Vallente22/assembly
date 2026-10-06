@@ -3,6 +3,7 @@ import './App.css'
 import { languages } from './assets/languages';
 import clsx from 'clsx';
 import { getFarewellText, getWord } from './assets/utils';
+import Confetti from "react-confetti-boom";
 
 /**
  * Backlog:
@@ -13,11 +14,7 @@ import { getFarewellText, getWord } from './assets/utils';
  * ✅ Choose a random word from a list of words
  * ✅ Make the New Game button reset the game
  * ✅ Reveal what the word was if the user loses the game
- * - Confetti drop when the user wins
- * 
- * Challenge: Reveal the missing letters of the word if the user
- * loses the game. Style the missing letters to have the same red
- * color as the wrong letter keys.
+ * ✅ Confetti drop when the user wins
  */
 
 export default function AssemblyEndgame() {
@@ -157,6 +154,7 @@ export default function AssemblyEndgame() {
 
   return (
     <main>
+      {isGameWon && <Confetti />}
       <header>
         <h1>Assembly: Endgame</h1>
         <p>Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
