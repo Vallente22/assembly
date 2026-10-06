@@ -12,10 +12,12 @@ import { getFarewellText, getWord } from './assets/utils';
  * ✅ Fix a11y issues
  * ✅ Choose a random word from a list of words
  * ✅ Make the New Game button reset the game
- * - Reveal what the word was if the user loses the game
+ * ✅ Reveal what the word was if the user loses the game
  * - Confetti drop when the user wins
  * 
- * Challenge: Disable the keyboard when the game is over
+ * Challenge: Reveal the missing letters of the word if the user
+ * loses the game. Style the missing letters to have the same red
+ * color as the wrong letter keys.
  */
 
 export default function AssemblyEndgame() {
@@ -27,12 +29,12 @@ export default function AssemblyEndgame() {
 
   //derived values
   const numGuessesLeft = languages.length - 1
-  const wrongGuessCount = guessedLetters.filter(char => !currentWord.includes(char));
+  const wrongGuessCount = guessedLetters.filter(char => !currentWord.includes(char))
   const isGameWon = currentWord.split("").every(char => guessedLetters.includes(char))
   const isGameLost = languages.length <= wrongGuessCount.length;
   const isGameOver = isGameWon || isGameLost;
   const lastGuessedLetter = guessedLetters[guessedLetters.length - 1]
-  const isLastGuessWrong = lastGuessedLetter && !currentWord.includes(lastGuessedLetter) 
+  const isLastGuessWrong = lastGuessedLetter && !currentWord.includes(lastGuessedLetter)
   
   //static values
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -75,9 +77,19 @@ export default function AssemblyEndgame() {
   })
 
   const letterElements = currentWord.split("").map((char, index) => {
+    const className = clsx({
+      lost: isGameLost && !guessedLetters.includes(char)
+    })
+
     return (
-      <span key={index}>
-        {guessedLetters.includes(char) ? char.toUpperCase() : " "}
+      <span 
+        className={className}
+        key={index}
+      >
+        {guessedLetters.includes(char) ? 
+          char.toUpperCase() : 
+            isGameLost ? 
+              char.toUpperCase() : " "}
       </span>
     ) 
   })

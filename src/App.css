@@ -116,6 +116,10 @@ section.word > span {
   padding: 10px;
 }
 
+section.word > span.lost {
+  color: #E55445;
+}
+
 section.keyboard {
   display: flex;
   flex-wrap: wrap;
