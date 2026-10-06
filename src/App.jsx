@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { languages } from './assets/languages';
 import clsx from 'clsx';
-import { getFarewellText } from './assets/utils';
+import { getFarewellText, getWord } from './assets/utils';
 
 /**
  * Backlog:
@@ -10,8 +10,8 @@ import { getFarewellText } from './assets/utils';
  * ✅ Farewell messages in status section
  * ✅ Disable the keyboard when the game is over
  * ✅ Fix a11y issues
+ * ✅ Choose a random word from a list of words
  * - Make the New Game button reset the game
- * - Choose a random word from a list of words
  * - Confetti drop when the user wins
  * 
  * Challenge: Disable the keyboard when the game is over
@@ -20,7 +20,7 @@ import { getFarewellText } from './assets/utils';
 export default function AssemblyEndgame() {
 
   //state values
-  const [currentWord, setCurrentWord] = useState("react");
+  const [currentWord, setCurrentWord] = useState(getWord());
   const [guessedLetters, setguessedLetters] = useState([]);
 
 
@@ -32,8 +32,7 @@ export default function AssemblyEndgame() {
   const isGameOver = isGameWon || isGameLost;
   const lastGuessedLetter = guessedLetters[guessedLetters.length - 1]
   const isLastGuessWrong = lastGuessedLetter && !currentWord.includes(lastGuessedLetter) 
-
-  console.log(isLastGuessWrong)
+  
   //static values
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
   
