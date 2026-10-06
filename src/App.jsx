@@ -76,10 +76,10 @@ export default function AssemblyEndgame() {
     ) 
   })
 
-  const keyboardElements = alphabet.split("").map((char, index) => {
-    const isGuessed = guessedLetters.includes(char)
-    const isCorrect = isGuessed && currentWord.includes(char)
-    const isWrong = isGuessed && !currentWord.includes(char)
+  const keyboardElements = alphabet.split("").map((letter, index) => {
+    const isGuessed = guessedLetters.includes(letter)
+    const isCorrect = isGuessed && currentWord.includes(letter)
+    const isWrong = isGuessed && !currentWord.includes(letter)
     const className = clsx({
       correct: isCorrect,
       wrong: isWrong
@@ -89,10 +89,12 @@ export default function AssemblyEndgame() {
       <button 
         className={className}
         key={index}
-        onClick={() => addGuessedLetter(char)}
         disabled={isGameOver}
+        aria-disabled={guessedLetters.includes(letter)}
+        aria-label={`Letter ${letter}`}
+        onClick={() => addGuessedLetter(letter)}
       >
-        {char.toUpperCase()}
+        {letter.toUpperCase()}
       </button>
     )
   })
@@ -147,8 +149,12 @@ export default function AssemblyEndgame() {
         <p>Guess the word in under 8 attempts to keep the programming world safe from Assembly!</p>
       </header>
 
-      <section className={className}>
-        {renderGameStatus()}
+      <section 
+        aria-live="polite" 
+        role="status"
+        className={className}
+      >
+          {renderGameStatus()}
       </section>
 
       <section className="language-chips">
@@ -157,6 +163,18 @@ export default function AssemblyEndgame() {
 
       <section className="word">
         {letterElements}
+      </section>
+
+      <section 
+        className="sr-only" 
+        aria-live="polite" 
+        role="status"
+      >
+        <p>
+          Current word: {currentWord.split("").map(letter => 
+          guessedLetters.includes(letter) ? letter + "." : "blank.")
+          .join(" ")}
+        </p>
       </section>
 
       <section className="keyboard">
